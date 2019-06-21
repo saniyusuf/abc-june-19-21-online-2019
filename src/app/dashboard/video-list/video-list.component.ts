@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Video} from '../types';
 
 @Component({
   selector: "app-video-list",
@@ -6,9 +7,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   styleUrls: ["./video-list.component.css"]
 })
 export class VideoListComponent implements OnInit {
-  @Input() videoList;
+  @Input() videoList: Video[];
   selectedVideo;
-  @Output() videoSelected = new EventEmitter();
+  @Output() videoSelected = new EventEmitter<Video>();
 
   constructor() {}
 
