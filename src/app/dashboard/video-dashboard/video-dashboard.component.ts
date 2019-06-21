@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 import { Video } from "../types";
+import { VideoDataService } from "../../video-data.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-video-dashboard",
@@ -8,11 +9,11 @@ import { Video } from "../types";
   styleUrls: ["./video-dashboard.component.css"]
 })
 export class VideoDashboardComponent implements OnInit {
-  videoListData: Video[];
+  videoListData: Observable<Video[]>;
   videoToDisplay;
 
-  constructor(http: HttpClient) {
-    http.get<Video[]>(API_URL).subscribe(videoData => (this.videoListData = videoData));
+  constructor(videoService: VideoDataService) {
+    this.videoListData = videoService.loadVideos();
   }
 
   ngOnInit() {}
@@ -21,5 +22,3 @@ export class VideoDashboardComponent implements OnInit {
     this.videoToDisplay = video;
   }
 }
-
-const API_URL = "https://api.angularbootcamp.com/videos";
